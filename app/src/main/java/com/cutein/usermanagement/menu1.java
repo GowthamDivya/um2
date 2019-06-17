@@ -1,13 +1,12 @@
 package com.cutein.usermanagement;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cutein.usermanagement.models.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class menu1  extends Fragment implements View.OnClickListener{
 
@@ -58,7 +61,6 @@ public class menu1  extends Fragment implements View.OnClickListener{
         return inflater.inflate(R.layout.fragment1,container,false);
 
     }
-
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
@@ -66,10 +68,8 @@ public class menu1  extends Fragment implements View.OnClickListener{
 
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
-
             mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
         }
-
         editTextid = (EditText) view.findViewById(R.id.editText_id);
         editTextusername = (EditText) view.findViewById(R.id.ed_user_name);
         editTextdate = (EditText) view.findViewById(R.id.ed_date);
@@ -122,29 +122,24 @@ public class menu1  extends Fragment implements View.OnClickListener{
 
         progressDialog.setMessage("Submitting Please Wait...");
         progressDialog.show();
-
-        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, Gowtham!");
+        setEditingEnabled(false);
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = current_user.getUid();
+        String userId = current_user.getUid();
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
         String device_token = FirebaseInstanceId.getInstance().getToken();
-
         String key = mDatabase.child("posts").push().getKey();
+        Post post = new Post(userId,id,name,date,salary);
 
-        HashMap<String, String> userMap = new HashMap<>();
-        userMap.put("id",id);
-        userMap.put("Name",name);
-        userMap.put("Date", date);
-        userMap.put("Amount",salary);
-        userMap.put("device_token", device_token);
-        mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String, Object> postValues = post.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/posts/" + key, postValues);
+//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+
+        mDatabase.updateChildren(childUpdates);
+        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -156,5 +151,17 @@ public class menu1  extends Fragment implements View.OnClickListener{
         });
 
 
+    }
+
+    private void setEditingEnabled(boolean enabled) {
+        editTextid.setEnabled(enabled);
+        editTextusername.setEnabled(enabled);
+        editTextdate.setEnabled(enabled);
+        editTextsalary.setEnabled(enabled);
+        if (enabled) {
+            buttonSubmit.setVisibility(View.VISIBLE);
+        } else {
+            buttonSubmit.setVisibility(View.GONE);
+        }
     }
 }
