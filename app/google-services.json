@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "604869705622",
+    "firebase_url": "https://gowtham81431.firebaseio.com",
+    "project_id": "gowtham81431",
+    "storage_bucket": "gowtham81431.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604869705622:android:58a4fab60c584080",
+        "android_client_info": {
+          "package_name": "Com.my.newproject3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSa1jrHjHXMVeAGHrFHyXmTOzyPO_KCo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604869705622:android:0d1471ed9c9603a3",
+        "android_client_info": {
+          "package_name": "com.cutein.usermanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604869705622-rg09tdju698kl2m32t1qnoa0a3hjvdjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cutein.usermanagement",
+            "certificate_hash": "a9785bca9341a0a0dfe9dbec4e5f0a7945b269bc"
+          }
+        },
+        {
+          "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSa1jrHjHXMVeAGHrFHyXmTOzyPO_KCo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
