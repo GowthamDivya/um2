@@ -35,9 +35,11 @@ import com.google.firebase.database.ServerValue;
 
             mAuth = FirebaseAuth.getInstance();
 
-            mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+           mToolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle("Cute Inn");
+
+
 
             if (mAuth.getCurrentUser() != null) {
 
@@ -47,14 +49,15 @@ import com.google.firebase.database.ServerValue;
             }
 
 
-            //Tabs
-            mViewPager = (ViewPager) findViewById(R.id.main_tabPager);
-            //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-           // mViewPager.setAdapter(mSectionsPagerAdapter);
-
-            mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
-            mTabLayout.setupWithViewPager(mViewPager);
+//            //Tabs
+//            mViewPager = (ViewPager) findViewById(R.id.main_tabPager);
+//            //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//
+//           // mViewPager.setAdapter(mSectionsPagerAdapter);
+//
+//            mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
+//            mTabLayout.setupWithViewPager(mViewPager);
 
 
 
