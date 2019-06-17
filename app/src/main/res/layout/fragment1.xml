@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="employee id"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+
+        <EditText
+            android:id="@+id/ed_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Employee Name"
+            android:inputType="textPersonName|textEmailAddress" />
+
+        <EditText
+            android:id="@+id/ed_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="date"
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+
+        <EditText
+            android:id="@+id/ed_salary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="salary"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+        <Button
+            android:id="@+id/proSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Submit" />
+
+
+    </LinearLayout>
