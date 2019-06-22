@@ -3,6 +3,8 @@
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
+import com.cutein.usermanagement.fragments.BlankFragment;
+import com.cutein.usermanagement.fragments.menu1;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 
     public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -189,6 +190,8 @@ import com.google.firebase.database.ServerValue;
                     fragment = new menu1();
                     break;
                 case R.id.nav_gallery:
+                    fragment = new BlankFragment();
+                    break;
 
 
 

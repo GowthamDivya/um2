@@ -1,8 +1,10 @@
-package com.cutein.usermanagement;
+package com.cutein.usermanagement.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.cutein.usermanagement.R;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
