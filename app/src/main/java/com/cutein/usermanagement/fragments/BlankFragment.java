@@ -1,6 +1,7 @@
 package com.cutein.usermanagement.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,18 +33,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class BlankFragment extends Fragment {
-
+    private int mMonth, mYear, mDay;
   String value;
     Spinner spinner;
     RecyclerView recyclerView;
     private DatabaseReference UsersRef;
     Query query;
-    EditText choice;
+    EditText choice,date1,date2;
     Button search;
+    TextView datetv;
 
 
     public BlankFragment() { }
@@ -53,6 +57,58 @@ public class BlankFragment extends Fragment {
         spinner = rootView.findViewById(R.id.spinner1);
         choice = rootView.findViewById(R.id.choice);
         search = rootView.findViewById(R.id.search_btn);
+        date1 = rootView.findViewById(R.id.date1);
+        date2 = rootView.findViewById(R.id.date2);
+
+        date2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                date2.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
+                int coMonth = c.get(Calendar.MONTH);
+                int coDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+
+            }
+        });
+        date1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                date1.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
+                int coMonth = c.get(Calendar.MONTH);
+                int coDay = c.get(Calendar.DAY_OF_MONTH);
+
+            }
+        });
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

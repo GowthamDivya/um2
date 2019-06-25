@@ -35,11 +35,13 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/date1"
             android:selectAllOnFocus="true"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/date2"
             android:layout_marginLeft="50dp"
             android:selectAllOnFocus="true"
             android:layout_width="100dp"
