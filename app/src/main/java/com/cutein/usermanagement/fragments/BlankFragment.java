@@ -39,14 +39,14 @@ import java.util.List;
 
 public class BlankFragment extends Fragment {
     private int mMonth, mYear, mDay;
-  String value;
+  String value,startdate,enddate;
     Spinner spinner;
     RecyclerView recyclerView;
     private DatabaseReference UsersRef;
     Query query;
     EditText choice,date1,date2;
     Button search;
-    TextView datetv;
+
 
 
     public BlankFragment() { }
@@ -128,11 +128,21 @@ public class BlankFragment extends Fragment {
     private void search() {
 
         value = choice.getText().toString();
+        startdate =date1.getText().toString();
+        enddate =date2.getText().toString();
         if (TextUtils.isEmpty(value)) {
             Toast.makeText(getActivity(),"Please enter Employee id",Toast.LENGTH_SHORT).show();
             return;
         }
+        if (TextUtils.isEmpty(startdate)) {
+            Toast.makeText(getActivity(),"Please enter start date",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        if (TextUtils.isEmpty(enddate)) {
+            Toast.makeText(getActivity(),"Please enter End date",Toast.LENGTH_SHORT).show();
+            return;
+        }
         employee_serch(value);
     }
 
