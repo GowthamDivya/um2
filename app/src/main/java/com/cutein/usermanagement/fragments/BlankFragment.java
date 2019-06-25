@@ -10,55 +10,85 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cutein.usermanagement.R;
-import com.cutein.usermanagement.StartActivity;
+
 import com.cutein.usermanagement.models.Users;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BlankFragment extends Fragment {
 
-
+  String value;
+    Spinner spinner;
     RecyclerView recyclerView;
     private DatabaseReference UsersRef;
+    Query query;
+    EditText choice;
+    Button search;
 
 
-    public BlankFragment() {
-
-    }
+    public BlankFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_blank, container, false);
+        spinner = rootView.findViewById(R.id.spinner1);
+        choice = rootView.findViewById(R.id.choice);
+        search = rootView.findViewById(R.id.search_btn);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                search();
+
+            }
+        });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerviewid);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        UsersRef = FirebaseDatabase.getInstance().getReference().child("Employees");
 
+
+    private void search() {
+
+        value = choice.getText().toString();
+        if (TextUtils.isEmpty(value)) {
+            Toast.makeText(getActivity(),"Please enter Employee id",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        employee_serch(value);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void employee_serch(String value) {
+
+        query = FirebaseDatabase.getInstance().getReference().child("Employees")
+                .orderByChild("id")
+                .equalTo(value);
 
         FirebaseRecyclerOptions<Users> options =
                 new FirebaseRecyclerOptions.Builder<Users>()
-                        .setQuery(UsersRef, Users.class)
+                        .setQuery(query, Users.class)
                         .build();
 
         FirebaseRecyclerAdapter<Users, FindFriendViewHolder> adapter =
@@ -93,7 +123,32 @@ public class BlankFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.startListening();
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+       // UsersRef = FirebaseDatabase.getInstance().getReference().child("Employees");
+
+
+        List<String> list = new ArrayList<String>();
+        list.add("id ");
+        list.add("Name");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.item_spinnergreen, R.id.spinner_text1, list);
+        spinner.setAdapter(dataAdapter);
+
+    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//
+//
+//    }
 
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
