@@ -3,17 +3,17 @@ package com.cutein.usermanagement.models;
 
 public class Users {
     private String id;
-    private String name;
-    private String date;
-    private String salary;
+    private String Name;
+    private String Date;
+    private String Salary;
 
     public Users(){ }
 
     public Users(String id, String name, String date, String salary) {
         this.id = id;
-        this.name = name;
-        this.date = date;
-        this.salary = salary;
+        Name = name;
+        Date = date;
+        Salary = salary;
     }
 
     public String getId() {
@@ -21,15 +21,15 @@ public class Users {
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public String getSalary() {
-        return salary;
+        return Salary;
     }
 
     public void setId(String id) {
@@ -37,14 +37,14 @@ public class Users {
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        Date = date;
     }
 
     public void setSalary(String salary) {
-        this.salary = salary;
+        Salary = salary;
     }
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "SignInActivity";
     private Toolbar mToolbar;
 
     private TextInputLayout mLoginEmail;
@@ -87,46 +89,79 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser(String email, String password) {
 
+//
+//        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                if(task.isSuccessful()){
+//
+//                    mLoginProgress.dismiss();
+//
+//                    String current_user_id = mAuth.getCurrentUser().getUid();
+//                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+//
+//                    mUserDatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//
+//                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+//                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(mainIntent);
+//                            finish();
+//
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                } else {
+//
+//                    mLoginProgress.hide();
+//
+//                    String task_result = task.getException().getMessage().toString();
+//
+//                    Toast.makeText(LoginActivity.this, "Error : " + task_result, Toast.LENGTH_LONG).show();
+//
+//                }
+//
+//            }
+//        });
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()   {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
 
-                if(task.isSuccessful()){
+                      //  hideProgressDialog();
 
-                    mLoginProgress.dismiss();
-
-                    String current_user_id = mAuth.getCurrentUser().getUid();
-                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-                    mUserDatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(mainIntent);
-                            finish();
-
+                        if (task.isSuccessful()) {
+                        //    onAuthSuccess(task.getResult().getUser());
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Sign In Failed",
+                                    Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    }
+                });
 
 
 
 
-                } else {
 
-                    mLoginProgress.hide();
 
-                    String task_result = task.getException().getMessage().toString();
 
-                    Toast.makeText(LoginActivity.this, "Error : " + task_result, Toast.LENGTH_LONG).show();
 
-                }
 
-            }
-        });
+
+
+
+
 
 
     }

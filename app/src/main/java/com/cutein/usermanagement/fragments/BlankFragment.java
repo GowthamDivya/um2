@@ -23,27 +23,23 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class BlankFragment extends Fragment {
 
-
-    //RecyclerView recyclerView;
 
     RecyclerView recyclerView;
     private DatabaseReference UsersRef;
 
 
     public BlankFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_blank, container, false);
-         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerviewid);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerviewid);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return rootView;
@@ -69,16 +65,18 @@ public class BlankFragment extends Fragment {
                 new FirebaseRecyclerAdapter<Users, FindFriendViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Users model) {
-                        holder.userName.setText(model.getId());
+                        holder.userName.setText(" id:"+model.getId());
                         holder.userStatus.setText(model.getName());
+                        holder.userdate.setText("date:"+model.getDate());
+                        holder.usersalary.setText("Amount:"+model.getSalary());
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String visit_user_id = getRef(position).getKey();
-
-                                Intent profileIntent = new Intent(getContext(), StartActivity.class);
-                                profileIntent.putExtra("visit_user_id", visit_user_id);
-                                startActivity(profileIntent);
+//                                String visit_user_id = getRef(position).getKey();
+//
+//                                Intent profileIntent = new Intent(getContext(), StartActivity.class);
+//                                profileIntent.putExtra("visit_user_id", visit_user_id);
+//                                startActivity(profileIntent);
                             }
                         });
                     }
@@ -100,13 +98,14 @@ public class BlankFragment extends Fragment {
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
     {
-        TextView userName, userStatus;
+        TextView userName, userStatus,userdate,usersalary;
         public FindFriendViewHolder(@NonNull View itemView)
         {
             super(itemView);
             userName = itemView.findViewById(R.id.status_text);
             userStatus = itemView.findViewById(R.id.name_text);
-
+            userdate = itemView.findViewById(R.id.user_date);
+            usersalary = itemView.findViewById(R.id.user_salary);
         }
     }
 

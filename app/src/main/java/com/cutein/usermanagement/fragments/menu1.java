@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cutein.usermanagement.models.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,10 +67,10 @@ public class menu1  extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Menu");
 
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null) {
-            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-        }
+//        mAuth = FirebaseAuth.getInstance();
+//        if (mAuth.getCurrentUser() != null) {
+//            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+//        }
         editTextid = (EditText) view.findViewById(R.id.editText_id);
         editTextusername = (EditText) view.findViewById(R.id.ed_user_name);
         editTextdate = (EditText) view.findViewById(R.id.ed_date);
@@ -126,22 +125,26 @@ public class menu1  extends Fragment implements View.OnClickListener{
         progressDialog.show();
         setEditingEnabled(false);
 
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = current_user.getUid();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child("Employees").child(id);
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
-        String device_token = FirebaseInstanceId.getInstance().getToken();
-        String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId,id,name,date,salary);
 
-        Map<String, Object> postValues = post.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + key, postValues);
+
+//
+//        mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
+        Map<String, Object> employee = new HashMap<>();
+        employee.put("id",id);
+        employee.put("Name",name);
+        employee.put("Date",date);
+        employee.put("Salary",salary);
+//
+
 //        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
-        mDatabase.updateChildren(childUpdates);
-        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.setValue(employee).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -149,11 +152,11 @@ public class menu1  extends Fragment implements View.OnClickListener{
                     Toast.makeText(getActivity(),"Submited Sucessfully!",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
-            }
-        });
 
+            }});
 
     }
+
 
     private void setEditingEnabled(boolean enabled) {
         editTextid.setEnabled(enabled);
