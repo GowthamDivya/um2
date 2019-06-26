@@ -134,13 +134,21 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()   {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        finish();
 
                       //  hideProgressDialog();
 
                         if (task.isSuccessful()) {
+
+                            Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(mainIntent);
+                            finish();
+
+
                         //    onAuthSuccess(task.getResult().getUser());
                         } else {
                             Toast.makeText(LoginActivity.this, "Sign In Failed",

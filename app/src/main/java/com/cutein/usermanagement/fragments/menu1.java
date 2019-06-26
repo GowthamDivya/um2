@@ -1,5 +1,6 @@
 package com.cutein.usermanagement.fragments;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +37,7 @@ import java.util.Map;
 
 public class menu1  extends Fragment implements View.OnClickListener{
 
-
+    private int mMonth, mYear, mDay;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private ListView mDrawerList;
@@ -67,6 +70,8 @@ public class menu1  extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Menu");
 
+
+
 //        mAuth = FirebaseAuth.getInstance();
 //        if (mAuth.getCurrentUser() != null) {
 //            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
@@ -78,6 +83,29 @@ public class menu1  extends Fragment implements View.OnClickListener{
         buttonSubmit = (Button) view.findViewById(R.id.proSignup);
         progressDialog = new ProgressDialog(getActivity());
         buttonSubmit.setOnClickListener(this);
+        editTextdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                editTextdate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
+                int coMonth = c.get(Calendar.MONTH);
+                int coDay = c.get(Calendar.DAY_OF_MONTH);
+
+            }
+        });
 
     }
 
@@ -129,28 +157,31 @@ public class menu1  extends Fragment implements View.OnClickListener{
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Employees").child(id);
-
+        //myRef.setValue("Hello, World!");
 
 
 
 //
-//        mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
+//      // mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
         Map<String, Object> employee = new HashMap<>();
         employee.put("id",id);
         employee.put("Name",name);
         employee.put("Date",date);
         employee.put("Salary",salary);
-//
 
-//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+
+
 
         myRef.setValue(employee).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-
                     Toast.makeText(getActivity(),"Submited Sucessfully!",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
+                }
+                else{
+                      progressDialog.dismiss();
+                    Toast.makeText(getActivity(),"Not  Sucessfully!",Toast.LENGTH_SHORT).show();
                 }
 
             }});

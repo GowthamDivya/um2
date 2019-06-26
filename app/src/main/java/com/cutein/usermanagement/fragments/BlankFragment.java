@@ -39,7 +39,7 @@ import java.util.List;
 
 public class BlankFragment extends Fragment {
     private int mMonth, mYear, mDay;
-  String value,startdate,enddate;
+    String value,startdate,enddate;
     Spinner spinner;
     RecyclerView recyclerView;
     private DatabaseReference UsersRef;
@@ -148,9 +148,12 @@ public class BlankFragment extends Fragment {
 
     private void employee_serch(String value) {
 
+
+      //  Query firebaseSearchQuery = mUserDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
         query = FirebaseDatabase.getInstance().getReference().child("Employees")
-                .orderByChild("id")
-                .equalTo(value);
+                .orderByChild("Date")
+                .startAt(startdate)
+                .endAt(enddate);
 
         FirebaseRecyclerOptions<Users> options =
                 new FirebaseRecyclerOptions.Builder<Users>()
@@ -197,7 +200,7 @@ public class BlankFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-       // UsersRef = FirebaseDatabase.getInstance().getReference().child("Employees");
+        // UsersRef = FirebaseDatabase.getInstance().getReference().child("Employees");
 
 
         List<String> list = new ArrayList<String>();

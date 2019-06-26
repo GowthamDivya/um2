@@ -19,11 +19,18 @@
             android:background="@drawable/custom_spinner"
             android:padding="10dp"
             android:spinnerMode="dropdown" />
-        <EditText
+        <androidx.cardview.widget.CardView
             android:layout_marginLeft="25dp"
-            android:id="@+id/choice"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+
+                android:id="@+id/choice"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+        </androidx.cardview.widget.CardView>
 
 
 
@@ -31,25 +38,40 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/date1"
+                    android:hint="from date"
+                    android:selectAllOnFocus="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/date1"
-            android:selectAllOnFocus="true"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+            </androidx.cardview.widget.CardView>
 
-        <EditText
-            android:id="@+id/date2"
-            android:layout_marginLeft="50dp"
-            android:selectAllOnFocus="true"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+        <androidx.cardview.widget.CardView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/date2"
+                android:hint="to date"
+                android:layout_marginLeft="50dp"
+                android:selectAllOnFocus="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </androidx.cardview.widget.CardView>
+
 
         <Button
             android:id="@+id/search_btn"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="20dp"
             android:text="search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
