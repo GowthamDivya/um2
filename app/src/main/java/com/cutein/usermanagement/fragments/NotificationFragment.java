@@ -2,6 +2,7 @@ package com.cutein.usermanagement.fragments;
 
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.cutein.usermanagement.R;
@@ -31,11 +33,14 @@ import java.util.Queue;
  */
 public class NotificationFragment extends Fragment {
 
+    String emailsCommaSeparated;
     Queue query;
+    String list;
+    String email_list;
     private final static  String TAG = "NotificationFragment";
     private DatabaseReference mdatabase;
     private ArrayList<String>  useremails = new ArrayList<>();
-    EditText myEmail, pass, sendToEmail, subject, text;
+    EditText  sendToEmail, subject, text;
     Button sendEmailButton;
     String myEmailString, passString, sendToEmailString, subjectString, textString;
     public NotificationFragment() {
@@ -48,8 +53,7 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_notification, container, false);
 
-        myEmail = (EditText) v.findViewById(R.id.emaileditText);
-        pass = (EditText) v.findViewById(R.id.passEditText);
+
         sendToEmail = (EditText) v.findViewById(R.id.sendToEmaileditText);
         subject = (EditText) v.findViewById(R.id.subjectEditText);
         text = (EditText) v.findViewById(R.id.textEditText);
@@ -58,12 +62,11 @@ public class NotificationFragment extends Fragment {
         sendEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myEmailString = myEmail.getText().toString();
-                passString = pass.getText().toString();
+                myEmailString = "gowthamandriod81431@gmail.com";
+                passString ="Passw0rd@2019";
                 sendToEmailString = sendToEmail.getText().toString();
                 subjectString = subject.getText().toString();
                 textString = text.getText().toString();
-
                 sendEmailTask.execute();
             }
         });
@@ -86,7 +89,7 @@ public class NotificationFragment extends Fragment {
                 sender.sendMail(subjectString,
                         textString,
                         myEmailString,
-                        sendToEmailString);
+                        emailsCommaSeparated);
 
                 Log.i("Email sending", "send");
             } catch (Exception e) {
@@ -102,39 +105,27 @@ public class NotificationFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
           mdatabase = FirebaseDatabase.getInstance().getReference().child("Employees");
-
-
-//        query = FirebaseDatabase.getInstance().getReference().child("Employees")
-//                .orderByChild("Email")
-//                .startAt()
-//                .endAt();
-
-
-
           mdatabase.addChildEventListener(new ChildEventListener() {
+              @RequiresApi(api = Build.VERSION_CODES.O)
               @Override
               public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                  for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                      String child = ds.getKey();
-                      Log.d("TAG", child);
-                  }
-
                   Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     String email = (String) map.get("Email");
+                  Log.d(TAG, "emails all: "+email);
                     useremails.add(email);
-
                     Log.d(TAG, "Value is: " + useremails);
+                     email_list  =  useremails.toString();
+                  Log.d(TAG, "EmailList:"+email_list);
+                    //String csv = map.join(",",map);
                  // User user = dataSnapshot.getValue(User.class);
                   //useremails.add(value);
-              }
+                   emailsCommaSeparated = String.join(",", useremails);
 
+              }
               @Override
               public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 

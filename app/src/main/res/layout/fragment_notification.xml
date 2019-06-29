@@ -9,39 +9,6 @@
 
 
     <EditText
-        android:id="@+id/emaileditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="email"
-        android:imeOptions="actionNext"
-        android:inputType="textEmailAddress"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/passEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="password"
-        android:imeOptions="actionNext"
-        android:inputType="textPassword"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emaileditText" />
-
-
-    <EditText
         android:id="@+id/subjectEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="19dp"
         android:ems="10"
         android:hint="send to this email"
         android:imeOptions="actionNext"
@@ -71,7 +37,8 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passEditText" />
+        tools:layout_editor_absoluteY="149dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/textEditText"
