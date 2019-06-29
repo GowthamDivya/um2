@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -44,8 +45,8 @@ public class GmailSender extends javax.mail.Authenticator {
     }
 
     protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-      return null;
-       // return new PasswordAuthentication(user, password);
+      //return null;
+        return new PasswordAuthentication(user, password);
     }
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
