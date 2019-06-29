@@ -8,43 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:604869705622:android:f16c5db4e15b1fb4",
-        "android_client_info": {
-          "package_name": "com.cute.employeelist"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "604869705622-vmagh7kb6pg56p75hcfqm6i8gh568fi9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cute.employeelist",
-            "certificate_hash": "eeb183e3ebfa8544874b967d1906f8410bdde2ba"
-          }
-        },
-        {
-          "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDSa1jrHjHXMVeAGHrFHyXmTOzyPO_KCo8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "604869705622-ut9uqm81rg01tv7hqv818ipob2mvbvq6.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:604869705622:android:0d1471ed9c9603a3",
         "android_client_info": {
           "package_name": "com.cutein.usermanagement"

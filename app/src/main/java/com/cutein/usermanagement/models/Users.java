@@ -6,14 +6,16 @@ public class Users {
     private String Name;
     private String Date;
     private String Salary;
+    private String Email;
 
     public Users(){ }
 
-    public Users(String id, String name, String date, String salary) {
+    public Users(String id, String name, String date, String salary, String email) {
         this.id = id;
         Name = name;
         Date = date;
         Salary = salary;
+        Email = email;
     }
 
     public String getId() {
@@ -32,6 +34,10 @@ public class Users {
         return Salary;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -46,5 +52,9 @@ public class Users {
 
     public void setSalary(String salary) {
         Salary = salary;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 
 import com.cutein.usermanagement.fragments.BlankFragment;
+import com.cutein.usermanagement.fragments.NotificationFragment;
 import com.cutein.usermanagement.fragments.menu1;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -192,9 +193,9 @@ import com.google.firebase.database.ServerValue;
                 case R.id.nav_gallery:
                     fragment = new BlankFragment();
                     break;
-
-
-
+                case R.id.nav_slideshow:
+                    fragment = new NotificationFragment();
+                    break;
 
             }
 

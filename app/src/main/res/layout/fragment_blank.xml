@@ -32,9 +32,6 @@
 
         </androidx.cardview.widget.CardView>
 
-
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -50,24 +47,20 @@
                     android:selectAllOnFocus="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
             </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/date2"
                 android:hint="to date"
-                android:layout_marginLeft="50dp"
                 android:selectAllOnFocus="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
         </androidx.cardview.widget.CardView>
-
 
         <Button
             android:id="@+id/search_btn"

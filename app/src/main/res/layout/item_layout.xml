@@ -57,7 +57,19 @@
         android:layout_marginTop="5dp">
 
     </TextView>
+    <TextView
+        android:id="@+id/user_eamilid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name_text"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="30dp"
+        android:text="Username"
+        android:layout_marginTop="5dp">
 
-    </LinearLayout>
+    </TextView>
+
+
+</LinearLayout>
 
 </androidx.cardview.widget.CardView>

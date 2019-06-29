@@ -4,54 +4,102 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_id"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:ems="10"
-            android:hint="employee id"
-            android:inputType="number"
-            android:selectAllOnFocus="true"
-            android:singleLine="true" />
+            android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/editText_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:ems="10"
+                    android:hint="employee id"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
 
-        <EditText
-            android:id="@+id/ed_user_name"
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Employee Name"
-            android:inputType="textPersonName|textEmailAddress" />
+            android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/ed_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Employee Name"
+                    android:inputType="textPersonName|textEmailAddress" />
 
-        <EditText
-            android:id="@+id/ed_date"
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:ems="10"
-            android:hint="date"
-            android:inputType="date"
-            android:selectAllOnFocus="true"
-            android:singleLine="true" />
+            android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/ed_user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Employee Email"
+                    android:inputType="textEmailAddress" />
+
+        </androidx.cardview.widget.CardView>
 
 
-        <EditText
-            android:id="@+id/ed_salary"
+
+
+
+
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:ems="10"
-            android:hint="salary"
-            android:inputType="number"
-            android:selectAllOnFocus="true"
-            android:singleLine="true" />
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/ed_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:ems="10"
+                    android:hint="date"
+                    android:inputType="date"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
+
+
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+         <androidx.cardview.widget.CardView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+                 <EditText
+                     android:id="@+id/ed_salary"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="15dp"
+                     android:ems="10"
+                     android:hint="salary"
+                     android:inputType="number"
+                     android:selectAllOnFocus="true"
+                     android:singleLine="true" />
+
+         </androidx.cardview.widget.CardView>
+
+
         <Button
             android:id="@+id/proSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Submit" />
+            android:background="#217AFF"
+            android:text="Submit"
+            android:textAllCaps="true"
+            android:textColor="#F0FCFCFC"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
 
 
 </LinearLayout>

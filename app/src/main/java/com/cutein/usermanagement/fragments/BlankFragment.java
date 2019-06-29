@@ -2,15 +2,10 @@ package com.cutein.usermanagement.fragments;
 
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cutein.usermanagement.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.cutein.usermanagement.R;
 import com.cutein.usermanagement.models.Users;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 
 public class BlankFragment extends Fragment {
     private int mMonth, mYear, mDay;
@@ -46,6 +48,7 @@ public class BlankFragment extends Fragment {
     Query query;
     EditText choice,date1,date2;
     Button search;
+    String URL="https://www.google.com/";
 
 
 
@@ -163,21 +166,33 @@ public class BlankFragment extends Fragment {
         FirebaseRecyclerAdapter<Users, FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Users, FindFriendViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Users model) {
+                    protected void onBindViewHolder(@NonNull final FindFriendViewHolder holder, final int position, @NonNull final Users model) {
                         holder.userName.setText(" id:"+model.getId());
                         holder.userStatus.setText(model.getName());
                         holder.userdate.setText("date:"+model.getDate());
                         holder.usersalary.setText("Amount:"+model.getSalary());
+                        holder.useremail.setText("Email:"+model.getEmail());
+
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+            downloadFile(holder.userName.getContext(),model.getName(),".pdf",DIRECTORY_DOWNLOADS,URL);
+
 //                                String visit_user_id = getRef(position).getKey();
-//
 //                                Intent profileIntent = new Intent(getContext(), StartActivity.class);
 //                                profileIntent.putExtra("visit_user_id", visit_user_id);
 //                                startActivity(profileIntent);
                             }
                         });
+                    }
+                    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+
+                        DownloadManager downloadmanager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                        Uri uri = Uri.parse(url);
+                        DownloadManager.Request request = new DownloadManager.Request(uri);
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+                        downloadmanager.enqueue(request);
                     }
 
                     @NonNull
@@ -222,7 +237,7 @@ public class BlankFragment extends Fragment {
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
     {
-        TextView userName, userStatus,userdate,usersalary;
+        TextView userName, userStatus,userdate,usersalary,useremail;
         public FindFriendViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -230,6 +245,8 @@ public class BlankFragment extends Fragment {
             userStatus = itemView.findViewById(R.id.name_text);
             userdate = itemView.findViewById(R.id.user_date);
             usersalary = itemView.findViewById(R.id.user_salary);
+            useremail = itemView.findViewById(R.id.user_eamilid);
+
         }
     }
 

@@ -39,8 +39,10 @@ public class menu1  extends Fragment implements View.OnClickListener{
 
     private int mMonth, mYear, mDay;
     private FirebaseAuth mAuth;
-    private Toolbar mToolbar;
+
+
     private ListView mDrawerList;
+
     private ArrayAdapter<String> mAdapter;
 
     private ViewPager mViewPager;
@@ -53,6 +55,7 @@ public class menu1  extends Fragment implements View.OnClickListener{
 
     private EditText editTextid;
     private EditText editTextusername;
+    private EditText editTextemail;
     private EditText editTextdate;
     private EditText editTextsalary;
     private Button buttonSubmit;
@@ -78,6 +81,7 @@ public class menu1  extends Fragment implements View.OnClickListener{
 //        }
         editTextid = (EditText) view.findViewById(R.id.editText_id);
         editTextusername = (EditText) view.findViewById(R.id.ed_user_name);
+        editTextemail = (EditText) view.findViewById(R.id.ed_user_email);
         editTextdate = (EditText) view.findViewById(R.id.ed_date);
         editTextsalary = (EditText) view.findViewById(R.id.ed_salary);
         buttonSubmit = (Button) view.findViewById(R.id.proSignup);
@@ -121,6 +125,7 @@ public class menu1  extends Fragment implements View.OnClickListener{
         final String name = editTextusername.getText().toString().trim();
         final String date = editTextdate.getText().toString().trim();
         final String salary = editTextsalary.getText().toString().trim();
+        final String email = editTextemail.getText().toString().trim();
 
         if (TextUtils.isEmpty(id)) {
 //            Toast.makeText(this, "Please enter Employee id", Toast.LENGTH_LONG).show();
@@ -146,6 +151,18 @@ public class menu1  extends Fragment implements View.OnClickListener{
             Toast.makeText(getActivity(),"Please enter Salary",Toast.LENGTH_SHORT).show();
             return;
         }
+        if (TextUtils.isEmpty(email)) {
+
+//            Toast.makeText(this, "Please enter Salary", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Please enter Salary",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
+
+
         //if the email and password are not empty
         //displaying a progress dialog
 
@@ -154,18 +171,13 @@ public class menu1  extends Fragment implements View.OnClickListener{
         setEditingEnabled(false);
 
 
-        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("Employees").child(id);
-        //myRef.setValue("Hello, World!");
+        DatabaseReference myRef = database.getReference().child("Employee_salaries").child(id);
 
-
-
-//
-//      // mDatabase = FirebaseDatabase.getInstance().getReference().child("Employees").child(id);
         Map<String, Object> employee = new HashMap<>();
         employee.put("id",id);
         employee.put("Name",name);
+        employee.put("Email",email);
         employee.put("Date",date);
         employee.put("Salary",salary);
 
@@ -194,6 +206,7 @@ public class menu1  extends Fragment implements View.OnClickListener{
         editTextusername.setEnabled(enabled);
         editTextdate.setEnabled(enabled);
         editTextsalary.setEnabled(enabled);
+        editTextemail.setEnabled(enabled);
         if (enabled) {
             buttonSubmit.setVisibility(View.VISIBLE);
         } else {
