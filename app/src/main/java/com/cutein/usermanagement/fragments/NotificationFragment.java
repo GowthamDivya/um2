@@ -43,6 +43,7 @@ public class NotificationFragment extends Fragment {
     EditText  sendToEmail, subject, text;
     Button sendEmailButton;
     String myEmailString, passString, sendToEmailString, subjectString, textString;
+     SendEmailTask sendEmailTask;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -58,43 +59,51 @@ public class NotificationFragment extends Fragment {
         subject = (EditText) v.findViewById(R.id.subjectEditText);
         text = (EditText) v.findViewById(R.id.textEditText);
         sendEmailButton = (Button) v.findViewById(R.id.button);
-        final SendEmailTask sendEmailTask = new SendEmailTask();
-        sendEmailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myEmailString = "gowthamandriod81431@gmail.com";
-                passString ="Passw0rd@2019";
-                sendToEmailString = sendToEmail.getText().toString();
-                subjectString = subject.getText().toString();
-                textString = text.getText().toString();
-                sendEmailTask.execute();
-            }
-        });
+         sendEmailTask = new SendEmailTask();
+
+//        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                myEmailString = "gowthamandriod81431@gmail.com";
+//                passString ="Passw0rd@2019";
+//                sendToEmailString = sendToEmail.getText().toString();
+//                subjectString = subject.getText().toString();
+//                textString = text.getText().toString();
+//                sendEmailTask.execute();
+//            }
+//        });
 
         return  v;
     }
     class SendEmailTask extends AsyncTask<Void, Void, Void> {
 
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             Log.i("Email sending", "sending start");
+
         }
+
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
                 GmailSender sender = new GmailSender(myEmailString, passString);
                 //subject, body, sender, to
                 sender.sendMail(subjectString,
                         textString,
                         myEmailString,
-                        emailsCommaSeparated);
+                        sendToEmailString);
+
 
                 Log.i("Email sending", "send");
             } catch (Exception e) {
                 Log.i("Email sending", "cannot send");
                 e.printStackTrace();
+
             }
             return null;
         }
@@ -102,6 +111,8 @@ public class NotificationFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            sendEmailTask.cancel(true);
+
         }
     }
 
@@ -123,7 +134,25 @@ public class NotificationFragment extends Fragment {
                     //String csv = map.join(",",map);
                  // User user = dataSnapshot.getValue(User.class);
                   //useremails.add(value);
-                   emailsCommaSeparated = String.join(",", useremails);
+                   //emailsCommaSeparated = String.join(",", useremails);
+                    sendEmailButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            for (int i=0; i<useremails.size(); i++)
+                            {
+                                myEmailString = "gowthamandriod81431@gmail.com";
+                                passString ="Passw0rd@2019";
+                                sendToEmailString = useremails.get(i);
+                                subjectString = subject.getText().toString();
+                                textString = text.getText().toString();
+                              new  SendEmailTask().execute();
+
+                            }
+
+
+                        }
+                    });
 
               }
               @Override
